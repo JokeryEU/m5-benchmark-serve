@@ -4,7 +4,7 @@ import {
   addReview,
   modifyReview,
   deleteReview,
-  postReviewOnProductId,
+  postReviewOnMediaId,
   getReviewsById,
 } from "../controllers/reviews.js";
 import { validateReview } from "../middlewares/validation/reviewValidation.js";
@@ -19,6 +19,6 @@ router
   .put(validateReview, modifyReview)
   .delete(deleteReview);
 
-router.route("/:id/product").post(validateReview, postReviewOnProductId);
+router.route("/:id/media").post(validateReview, postReviewOnMediaId);
 
 export default router;

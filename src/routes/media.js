@@ -1,35 +1,29 @@
 import { Router } from "express";
 import {
-  getProducts,
-  addProduct,
-  modifyProduct,
-  deleteProduct,
+  getMedia,
+  addMedia,
+  modifyMedia,
+  deleteMedia,
   uploadMediaPic,
-  getProductReviews,
-  getProductsByQuery,
+  getMediaReviews,
+  getMediaByQuery,
 } from "../controllers/media.js";
 import {
-  multerValidation,
-  validateProduct,
-  validateProductSchema,
-} from "../middlewares/validation/productsValidation.js";
+  // multerValidation,
+  validateMedia,
+  validateMediaSchema,
+} from "../middlewares/validation/mediaValidation.js";
 import multerValidation from "../middlewares/validation/multerValidation.js";
 const upload = multerValidation();
 const router = Router();
 
-router
-  .route("/")
-  .get(getProductsByQuery, getProducts)
-  .post(validateProduct, addProduct);
+router.route("/").get(getMediaByQuery, getMedia).post(validateMedia, addMedia);
 
 // router.route('/:id').put(validateProduct, modifyProduct).delete(deleteProduct);
-router
-  .route("/:id")
-  .put(validateProductSchema, modifyProduct)
-  .delete(deleteProduct);
+router.route("/:id").put(validateMediaSchema, modifyMedia).delete(deleteMedia);
 
 router.route("/:id/upload").post(upload, uploadMediaPic);
 
-router.route("/:id/reviews").get(getProductReviews);
+router.route("/:id/reviews").get(getMediaReviews);
 
 export default router;

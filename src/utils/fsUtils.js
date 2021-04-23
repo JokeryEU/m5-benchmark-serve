@@ -6,22 +6,22 @@ const { readJSON, writeJSON, writeFile } = fs;
 
 const allData = join(dirname(fileURLToPath(import.meta.url)), "../data");
 
-const productsFiles = join(
+const mediaFiles = join(
   dirname(fileURLToPath(import.meta.url)),
-  "../../public/img/products"
+  "../../public/img/media"
 );
 
-export const fetchProducts = async () =>
-  await readJSON(join(allData, "products.json"));
+export const fetchMedia = async () =>
+  await readJSON(join(allData, "media.json"));
 
 export const fetchReviews = async () =>
   await readJSON(join(allData, "reviews.json"));
 
-export const writeProducts = async (content) =>
-  await writeJSON(join(allData, "products.json"), content);
+export const writeMedia = async (content) =>
+  await writeJSON(join(allData, "media.json"), content);
 
 export const writeReviews = async (content) =>
   await writeJSON(join(allData, "reviews.json"), content);
 
-export const writeProductsPics = async (fileName, content) =>
-  await writeFile(join(productsFiles, fileName), content);
+export const writeMediaPics = async (fileName, content) =>
+  await writeFile(join(mediaFiles, fileName), content);

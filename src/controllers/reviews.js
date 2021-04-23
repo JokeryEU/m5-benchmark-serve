@@ -1,5 +1,5 @@
 import uniqid from "uniqid";
-import { fetchReviews, writeReviews, fetchProducts } from "../utils/fsUtils.js";
+import { fetchReviews, writeReviews, fetchMedia } from "../utils/fsUtils.js";
 
 // @desc    Get all reviews
 // @route   GET /reviews/:id
@@ -99,22 +99,20 @@ export const deleteReview = async (req, res, next) => {
   }
 };
 
-export const postReviewOnProductId = async (req, res, next) => {
+export const postReviewOnMediaId = async (req, res, next) => {
   try {
     const reviews = await fetchReviews();
-    const products = await fetchProducts();
-    console.log(products);
-    const product_id = req.params.id;
+    const media = await fetchMedia();
+    console.log(media);
+    const media_id = req.params.id;
 
-    const findProduct = products.filter(
-      (product) => product._id === product_id
-    );
+    const findMedia = media.filter((media) => media._id === media_id);
 
-    if (findProduct) {
+    if (findMedia) {
       const newReview = {
         _id: uniqid(),
         ...req.body,
-        productId: product_id,
+        elementId: media_id,
         createdAt: new Date(),
         updatedAt: new Date(),
       };
@@ -124,7 +122,7 @@ export const postReviewOnProductId = async (req, res, next) => {
 
       res.status(201).send({ _id: newReview._id });
     } else {
-      res.status(400).send("Product id not found");
+      res.status(400).send("Media id not found");
     }
   } catch (error) {
     console.log(error);
